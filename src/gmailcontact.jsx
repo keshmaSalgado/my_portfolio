@@ -23,7 +23,7 @@ export default function Gmail() {
         setLoading(true); // 🟡 Start loading
 
         try {
-            const response = await fetch("https://backend-for-my-portfolio.vercel.app/", {
+            const response = await fetch("https://backend-for-my-portfolio.vercel.app", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
