@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
-
+import emailjs from '@emailjs/browser';
 
 export default function Gmail() {
     const navigate = useNavigate();
@@ -23,22 +23,23 @@ export default function Gmail() {
         setLoading(true); // 🟡 Start loading
 
         try {
-            const response = await fetch("https://backend-for-my-portfolio.vercel.app", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-            
+            // const response = await fetch("https://backend-for-my-portfolio.vercel.app", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify(formData),
+            // });
 
-            const data = await response.text();
-            alert(data);
+
+            // const data = await response.text();
+            // alert(data);
+            emailjs.sendForm('service_azl1jna', 'template_djv3br8', e.target, '1ix7omjxQAO_oTzZt')
 
             setFormData({
                 name: "",
                 email: "",
                 message: "",
             });
-        } catch  {
+        } catch {
             alert("Something went wrong");
         } finally {
             setLoading(false); // 🔵 Stop loading (whether success or error)
