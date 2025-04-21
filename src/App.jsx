@@ -12,19 +12,44 @@ import { Break } from 'three/tsl';
 const CameraControls = forwardRef((props, ref) => {
   const isMobile = window.innerWidth < 768;
   const { camera } = useThree();
+  const touchStartY = useRef(null);
   // const speed = 0.1;
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
   const handleMouseClick = () => {
     console.log(camera.rotation);
     // // console.log()
   };
+  const handleTouchStart = (e) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e) => {
+    if (touchStartY.current === null) return;
+
+    const touchEndY = e.touches[0].clientY;
+    const deltaY = touchStartY.current - touchEndY;
+
+    if (deltaY > 30 && currentTargetIndex < targetPositions.length - 1) {
+      setCurrentTargetIndex((prev) => prev + 1);
+      touchStartY.current = null; // prevent multiple fires
+    } else if (deltaY < -30 && currentTargetIndex > 0) {
+      setCurrentTargetIndex((prev) => prev - 1);
+      touchStartY.current = null;
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("click", handleMouseClick);
+    window.addEventListener("touchstart", handleTouchStart); // mobile
+    window.addEventListener("touchmove", handleTouchMove);   // mobile
+
     return () => {
       window.removeEventListener("click", handleMouseClick);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
 
-  }, [camera]); // No need for [camera] dependency
+  }, [currentTargetIndex]); // No need for [camera] dependency
 
 
   const targetPositions = [
@@ -95,7 +120,7 @@ function App() {
           className="text-white text-3xl md:hidden"
           onClick={toggleMenu}
         >
-          {isMenuOpen? '❌':'☰'}
+          {isMenuOpen ? '❌' : '☰'}
         </button>
 
         {/* Nav Buttons */}
