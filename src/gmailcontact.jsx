@@ -32,7 +32,8 @@ export default function Gmail() {
 
             // const data = await response.text();
             // alert(data);
-            emailjs.sendForm('service_azl1jna', 'template_djv3br8', e.target, '1ix7omjxQAO_oTzZt')
+            const result = emailjs.sendForm('service_azl1jna', 'template_djv3br8', e.target, '1ix7omjxQAO_oTzZt')
+            alert("Email sent:", result.text)
 
             setFormData({
                 name: "",
