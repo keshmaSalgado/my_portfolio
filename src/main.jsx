@@ -7,7 +7,6 @@ import Gmail from './gmailcontact.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />

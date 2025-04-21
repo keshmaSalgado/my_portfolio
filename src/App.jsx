@@ -15,10 +15,10 @@ const CameraControls = forwardRef((props, ref) => {
   const touchStartY = useRef(null);
   // const speed = 0.1;
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
-  const handleMouseClick = () => {
-    console.log(camera.rotation);
-    // // console.log()
-  };
+  // const handleMouseClick = () => {
+  //   console.log(camera.rotation);
+  //   // // console.log()
+  // };
   const handleTouchStart = (e) => {
     touchStartY.current = e.touches[0].clientY;
   };
@@ -38,18 +38,12 @@ const CameraControls = forwardRef((props, ref) => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("click", handleMouseClick);
-    window.addEventListener("touchstart", handleTouchStart); // mobile
-    window.addEventListener("touchmove", handleTouchMove);   // mobile
-
-    return () => {
-      window.removeEventListener("click", handleMouseClick);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
-
-  }, [currentTargetIndex]); // No need for [camera] dependency
+  // useEffect(() => {
+  //   window.addEventListener("click", handleMouseClick);
+  //   return () => {
+  //     window.removeEventListener("click", handleMouseClick);    
+  //   };
+  // }, [currentTargetIndex]); // No need for [camera] dependency
 
 
   const targetPositions = [
@@ -85,10 +79,14 @@ const CameraControls = forwardRef((props, ref) => {
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll);
+    window.addEventListener("touchstart", handleTouchStart); // mobile
+    window.addEventListener("touchmove", handleTouchMove);   // mobile
 
     return () => {
       // window.removeEventListener("resize", handleResize);
       window.removeEventListener("wheel", handleScroll);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, [currentTargetIndex]);
 
@@ -111,43 +109,54 @@ function App() {
   const cameraControlsRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const isMobile = window.innerWidth < 768;
 
   return (
     <>
-      <nav className="absolute top-0 right-0 z-40 p-4">
-        {/* Menu Icon */}
-        <button
-          className="text-white text-3xl md:hidden"
-          onClick={toggleMenu}
-        >
-          {isMenuOpen ? '❌' : '☰'}
-        </button>
+      <div className='flex'>
+        {isMobile ? <></> : <div className='left-0 absolute z-40 p-3 flex'>
+          <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
+          <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
 
-        {/* Nav Buttons */}
-        <div
-          className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
-            } md:flex`}
-        >
+        </div>}
+
+        <nav className="absolute top-0 right-0 z-40 p-4">
+
+          {/* Menu Icon */}
           <button
-            className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-            onClick={() => cameraControlsRef.current?.goToTeckStack()}
+            className="text-white text-3xl md:hidden"
+            onClick={toggleMenu}
           >
-            Teckstack
+            {isMenuOpen ? '❌' : '☰'}
           </button>
-          <button
-            className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-            onClick={() => cameraControlsRef.current?.goToAbout()}
+
+          {/* Nav Buttons */}
+          <div
+            className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
+              } md:flex`}
           >
-            About
-          </button>
-          <button
-            className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-            onClick={() => cameraControlsRef.current?.goToContact()}
-          >
-            Contact
-          </button>
-        </div>
-      </nav>
+            <button
+              className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+              onClick={() => cameraControlsRef.current?.goToTeckStack()}
+            >
+              Teckstack
+            </button>
+            <button
+              className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+              onClick={() => cameraControlsRef.current?.goToAbout()}
+            >
+              About
+            </button>
+            <button
+              className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+              onClick={() => cameraControlsRef.current?.goToContact()}
+            >
+              Contact
+            </button>
+
+          </div>
+        </nav>
+      </div>
 
       <Canvas >
         <ambientLight />

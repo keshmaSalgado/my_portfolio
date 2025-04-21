@@ -28,8 +28,6 @@ export default function Gmail() {
             //     headers: { "Content-Type": "application/json" },
             //     body: JSON.stringify(formData),
             // });
-
-
             // const data = await response.text();
             // alert(data);
             const result = emailjs.sendForm('service_azl1jna', 'template_djv3br8', e.target, '1ix7omjxQAO_oTzZt')
@@ -53,7 +51,6 @@ export default function Gmail() {
             </button>
             <form onSubmit={handleSubmit} className="max-w-lg mx-auto border-4 border-double border-amber-50 text-black p-6 rounded-2xl shadow-md space-y-4">
                 <h2 className="text-2xl font-bold text-center mb-4 text-amber-600">Contact Me</h2>
-
                 <input
                     type="text"
                     name="name"

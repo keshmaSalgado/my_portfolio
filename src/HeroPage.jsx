@@ -3,14 +3,9 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import './index.css'; // or wherever your Tailwind setup is located
 
-
-
-
 export default function Example() {
     return (
         <div className="relative bg-indigo-200">
-
-
             <main>
                 <div className="topic1">
                     <h1>💡 About</h1>
@@ -23,7 +18,7 @@ export default function Example() {
                 <div className="topic2">
                     THESE ARE MY PROJECTS
                 </div>
-                <a href="https://deluxe-bublanina-f45b24.netlify.app/" target="_blank" rel="noopener noreferrer">
+                <a href="https://first-learning-project.vercel.app/" target="_blank" rel="noopener noreferrer">
                     <div className='w-80 h-60 text-black text-[13px] border-4 rounded-2xl border-double hover:bg-black hover:text-amber-50'>
                         <div className='p-2'>
                             <h1 className='font-bold'>Vehical Shop</h1>
