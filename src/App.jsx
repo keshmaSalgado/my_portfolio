@@ -2,12 +2,14 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import React, {
   useEffect, useRef, useState, forwardRef,
   useImperativeHandle,
+  Suspense,
 } from "react";
 import { AmbientLight, Vector3 } from 'three'
-import { OrbitControls, PerspectiveCamera, Text, } from '@react-three/drei'
+import { Html, OrbitControls, PerspectiveCamera, Text, } from '@react-three/drei'
 import './index.css'
 import { Model } from './model'
 import { Break } from 'three/tsl';
+import { X } from 'lucide-react';
 
 const CameraControls = forwardRef((props, ref) => {
   const isMobile = window.innerWidth < 768;
@@ -19,7 +21,7 @@ const CameraControls = forwardRef((props, ref) => {
   //   console.log(camera.rotation);
   //   // // console.log()
   // };
-  {/*This is not working*/}
+  {/*This is not working*/ }
   // const handleTouchStart = (e) => {
   //   touchStartY.current = e.touches[0].clientY;
   // };
@@ -102,10 +104,17 @@ const Scene = () => {
   // const isMobile = window.innerWidth < 768;
   return (
     <>
-      <Model scale={[1, 1, 1]} /> {/* Scale for mobile */}
+      <Suspense fallback={
+        <Html center>
+          <p className="text-white text-xl italic animate-pulse">Loading model...</p>
+        </Html>
+      }>
+        <Model scale={[1, 1, 1]} /> {/* Scale for mobile */}
+      </Suspense>
     </>
   );
 };
+
 function App() {
   const cameraControlsRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -142,7 +151,7 @@ function App() {
             className="text-white text-3xl md:hidden"
             onClick={toggleMenu}
           >
-            {isMenuOpen ? '❌' : '☰'}
+            {isMenuOpen ? <X className="text-white w-6 h-6" /> : '☰'}
           </button>
 
           {/* Nav Buttons */}
