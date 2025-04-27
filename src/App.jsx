@@ -1,59 +1,232 @@
+// import { Canvas, useFrame, useThree } from '@react-three/fiber'
+// import React, {
+//   useEffect, useRef, useState, forwardRef,
+//   useImperativeHandle,
+//   Suspense,
+// } from "react";
+// import { AmbientLight, Vector3 } from 'three'
+// import { Html, OrbitControls, PerspectiveCamera, Text, } from '@react-three/drei'
+// import './index.css'
+// import { Model } from './model'
+// import { Break } from 'three/tsl';
+// import { X } from 'lucide-react';
+
+// const CameraControls = forwardRef((props, ref) => {
+//   const isMobile = window.innerWidth < 768;
+//   const { camera } = useThree();
+//   // const touchStartY = useRef(null);
+//   // const speed = 0.1;
+//   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
+//   // const handleMouseClick = () => {
+//   //   console.log(camera.rotation);
+//   //   // // console.log()
+//   // };
+//   {/*This is not working*/ }
+//   // const handleTouchStart = (e) => {
+//   //   touchStartY.current = e.touches[0].clientY;
+//   // };
+
+//   // const handleTouchMove = (e) => {
+//   //   if (touchStartY.current === null) return;
+
+//   //   const touchEndY = e.touches[0].clientY;
+//   //   const deltaY = touchStartY.current - touchEndY;
+
+//   //   if (deltaY > 30 && currentTargetIndex < targetPositions.length - 1) {
+//   //     setCurrentTargetIndex((prev) => prev + 1);
+//   //     touchStartY.current = null; // prevent multiple fires
+//   //   } else if (deltaY < -30 && currentTargetIndex > 0) {
+//   //     setCurrentTargetIndex((prev) => prev - 1);
+//   //     touchStartY.current = null;
+//   //   }
+//   // };
+
+//   // useEffect(() => {
+//   //   window.addEventListener("click", handleMouseClick);
+//   //   return () => {
+//   //     window.removeEventListener("click", handleMouseClick);    
+//   //   };
+//   // }, [currentTargetIndex]); // No need for [camera] dependency
+
+
+//   const targetPositions = [
+//     isMobile ? new Vector3(10, 6.64, 1.92) : new Vector3(6.09, 6.64, 3.52), // startup
+//     isMobile ? new Vector3(-1.2, 3, -0.10) : new Vector3(-0.93, 3.36, -0.48), // teckStack
+//     isMobile ? new Vector3(-0.55, 2.97, -1.35): new Vector3(-0.55, 2.97, -1.80), // About
+//     new Vector3(-1.95, 2.79, -0.03), // Contact
+//   ]
+
+//   const targetRotations = [
+//     [-0.8557, 1.2004, 0.8208],
+//     [-0.3056, 0.9293, 0.2476],
+//     [-0.3357, 0.0348, 0.0121],
+//     [-1.5526, 0.0621, 1.2864],
+//   ]
+
+//   // 👇 Expose functions via `ref`
+//   useImperativeHandle(ref, () => ({
+//     goToTeckStack: () => setCurrentTargetIndex(1),
+//     goToAbout: () => setCurrentTargetIndex(2),
+//     goToContact: () => setCurrentTargetIndex(3),
+//     goToStartup: () => setCurrentTargetIndex(0),
+//   }))
+
+//   const handleNext = () => {
+//     if (currentTargetIndex < targetPositions.length - 1) {
+//       setCurrentTargetIndex((prev) => prev + 1);
+//     }
+//   };
+
+
+//   const handleScroll = (event) => {
+//     if (event.deltaY > 0 && currentTargetIndex < targetPositions.length - 1) {
+//       setCurrentTargetIndex((prev) => prev + 1);
+//     } else if (event.deltaY < 0 && currentTargetIndex > 0) {
+//       setCurrentTargetIndex((prev) => prev - 1);
+//     }
+//   };
+
+//   useEffect(() => {
+//     window.addEventListener("wheel", handleScroll);
+//     // window.addEventListener("touchstart", handleTouchStart); // mobile
+//     // window.addEventListener("touchmove", handleTouchMove);   // mobile
+
+//     return () => {
+//       // window.removeEventListener("resize", handleResize);
+//       window.removeEventListener("wheel", handleScroll);
+//       // window.removeEventListener("touchstart", handleTouchStart);
+//       // window.removeEventListener("touchmove", handleTouchMove);
+//     };
+//   }, [currentTargetIndex]);
+
+//   useFrame(() => {
+//     camera.position.lerp(targetPositions[currentTargetIndex], 0.05)
+//     const [x, y, z] = targetRotations[currentTargetIndex]
+//     camera.rotation.set(x, y, z)
+//   })
+//   return null;
+// });
+// const Scene = () => {
+//   // const isMobile = window.innerWidth < 768;
+//   return (
+//     <>
+//       <Suspense fallback={
+//         <Html center>
+//           <p className="text-white text-xl italic animate-pulse">Loading model...</p>
+//         </Html>
+//       }>
+//         <Model scale={[1, 1, 1]} /> {/* Scale for mobile */}
+//       </Suspense>
+//     </>
+//   );
+// };
+
+// function App() {
+//   const cameraControlsRef = useRef();
+//   const [isMenuOpen, setIsMenuOpen] = useState(false);
+//   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+//   // Mobile detection state
+//   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+//   // Handle window resize and update isMobile state
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setIsMobile(window.innerWidth <= 768);
+//     };
+//     window.addEventListener('resize', handleResize);
+//     return () => {
+//       window.removeEventListener('resize', handleResize);
+//     };
+//   }, []);
+
+//   return (
+//     <>
+//       <div className='flex'>
+//         {!isMobile && (<div className='left-0 absolute z-40 p-3 flex'>
+//           <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
+//           <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
+
+//         </div>)}
+//         {/* Navigation Menu */}
+
+//         <nav className="absolute top-0 right-0 z-40 p-4">
+
+//           {/* Menu Icon */}
+//           <button
+//             className="text-white text-3xl md:hidden"
+//             onClick={toggleMenu}
+//           >
+//             {isMenuOpen ? <X className="text-white w-6 h-6" /> : '☰'}
+//           </button>
+
+//           {/* Nav Buttons */}
+//           <div
+//             className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
+//               } md:flex`}
+//           >
+//             <button
+//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+//               onClick={() => cameraControlsRef.current?.goToTeckStack()}
+//             >
+//               Teckstack
+//             </button>
+//             <button
+//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+//               onClick={() => cameraControlsRef.current?.goToAbout()}
+//             >
+//               About
+//             </button>
+//             <button
+//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
+//               onClick={() => cameraControlsRef.current?.goToContact()}
+//             >
+//               Contact
+//             </button>
+
+//           </div>
+//         </nav>
+//       </div>
+
+//       <Canvas >
+//         <ambientLight />
+//         <OrbitControls enableDamping={false} enableRotate={false} />
+//         <Scene />
+//         <CameraControls ref={cameraControlsRef} />
+//       </Canvas>
+//       <button onClick={handleNext}>
+
+//       </button>
+
+//     </>
+//   )
+// }
+
+// export default App
+
+
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import React, {
   useEffect, useRef, useState, forwardRef,
   useImperativeHandle,
   Suspense,
 } from "react";
-import { AmbientLight, Vector3 } from 'three'
-import { Html, OrbitControls, PerspectiveCamera, Text, } from '@react-three/drei'
-import './index.css'
+import { Vector3 } from 'three'
+import { Html, OrbitControls } from '@react-three/drei'
 import { Model } from './model'
-import { Break } from 'three/tsl';
 import { X } from 'lucide-react';
+import './index.css'
 
 const CameraControls = forwardRef((props, ref) => {
   const isMobile = window.innerWidth < 768;
   const { camera } = useThree();
-  // const touchStartY = useRef(null);
-  // const speed = 0.1;
   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
-  // const handleMouseClick = () => {
-  //   console.log(camera.rotation);
-  //   // // console.log()
-  // };
-  {/*This is not working*/ }
-  // const handleTouchStart = (e) => {
-  //   touchStartY.current = e.touches[0].clientY;
-  // };
-
-  // const handleTouchMove = (e) => {
-  //   if (touchStartY.current === null) return;
-
-  //   const touchEndY = e.touches[0].clientY;
-  //   const deltaY = touchStartY.current - touchEndY;
-
-  //   if (deltaY > 30 && currentTargetIndex < targetPositions.length - 1) {
-  //     setCurrentTargetIndex((prev) => prev + 1);
-  //     touchStartY.current = null; // prevent multiple fires
-  //   } else if (deltaY < -30 && currentTargetIndex > 0) {
-  //     setCurrentTargetIndex((prev) => prev - 1);
-  //     touchStartY.current = null;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("click", handleMouseClick);
-  //   return () => {
-  //     window.removeEventListener("click", handleMouseClick);    
-  //   };
-  // }, [currentTargetIndex]); // No need for [camera] dependency
-
 
   const targetPositions = [
-    isMobile ? new Vector3(10, 6.64, 1.92) : new Vector3(6.09, 6.64, 3.52), // startup
-    isMobile ? new Vector3(-1.2, 3, -0.10) : new Vector3(-0.93, 3.36, -0.48), // teckStack
-    new Vector3(-0.55, 2.97, -1.35), // About
-    new Vector3(-1.95, 2.79, -0.03), // Contact
+    isMobile ? new Vector3(10, 6.64, 1.92) : new Vector3(6.09, 6.64, 3.52),
+    isMobile ? new Vector3(-1.2, 3, -0.10) : new Vector3(-0.93, 3.36, -0.48),
+    isMobile ? new Vector3(-0.55, 2.97, -1.1) : new Vector3(-0.55, 2.97, -1.80),
+    new Vector3(-1.95, 2.79, -0.03),
   ]
 
   const targetRotations = [
@@ -63,45 +236,49 @@ const CameraControls = forwardRef((props, ref) => {
     [-1.5526, 0.0621, 1.2864],
   ]
 
-  // 👇 Expose functions via `ref`
+  // Expose navigation functions to parent
   useImperativeHandle(ref, () => ({
     goToTeckStack: () => setCurrentTargetIndex(1),
     goToAbout: () => setCurrentTargetIndex(2),
     goToContact: () => setCurrentTargetIndex(3),
     goToStartup: () => setCurrentTargetIndex(0),
+    goNext: () => {
+      if (currentTargetIndex < targetPositions.length - 1) {
+        setCurrentTargetIndex((prev) => prev + 1);
+      }
+    },
+    goPrev: () => {
+      if (currentTargetIndex > 0) {
+        setCurrentTargetIndex((prev) => prev - 1);
+      }
+    }
   }))
 
+  // const handleScroll = (event) => {
+  //   if (event.deltaY > 0 && currentTargetIndex < targetPositions.length - 1) {
+  //     setCurrentTargetIndex((prev) => prev + 1);
+  //   } else if (event.deltaY < 0 && currentTargetIndex > 0) {
+  //     setCurrentTargetIndex((prev) => prev - 1);
+  //   }
+  // };
 
-  const handleScroll = (event) => {
-    if (event.deltaY > 0 && currentTargetIndex < targetPositions.length - 1) {
-      setCurrentTargetIndex((prev) => prev + 1);
-    } else if (event.deltaY < 0 && currentTargetIndex > 0) {
-      setCurrentTargetIndex((prev) => prev - 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("wheel", handleScroll);
-    // window.addEventListener("touchstart", handleTouchStart); // mobile
-    // window.addEventListener("touchmove", handleTouchMove);   // mobile
-
-    return () => {
-      // window.removeEventListener("resize", handleResize);
-      window.removeEventListener("wheel", handleScroll);
-      // window.removeEventListener("touchstart", handleTouchStart);
-      // window.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [currentTargetIndex]);
+  // useEffect(() => {
+  //   window.addEventListener("wheel", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("wheel", handleScroll);
+  //   };
+  // }, [currentTargetIndex]);
 
   useFrame(() => {
     camera.position.lerp(targetPositions[currentTargetIndex], 0.05)
     const [x, y, z] = targetRotations[currentTargetIndex]
     camera.rotation.set(x, y, z)
   })
+
   return null;
 });
+
 const Scene = () => {
-  // const isMobile = window.innerWidth < 768;
   return (
     <>
       <Suspense fallback={
@@ -109,7 +286,7 @@ const Scene = () => {
           <p className="text-white text-xl italic animate-pulse">Loading model...</p>
         </Html>
       }>
-        <Model scale={[1, 1, 1]} /> {/* Scale for mobile */}
+        <Model scale={[1, 1, 1]} />
       </Suspense>
     </>
   );
@@ -118,12 +295,10 @@ const Scene = () => {
 function App() {
   const cameraControlsRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  // Mobile detection state
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  // Handle window resize and update isMobile state
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -137,16 +312,13 @@ function App() {
   return (
     <>
       <div className='flex'>
-        {!isMobile && (<div className='left-0 absolute z-40 p-3 flex'>
-          <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
-          <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
-
-        </div>)}
-        {/* Navigation Menu */}
-
+        {!isMobile && (
+          <div className='left-0 absolute z-40 p-3 flex'>
+            <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="Logo" />
+            <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
+          </div>
+        )}
         <nav className="absolute top-0 right-0 z-40 p-4">
-
-          {/* Menu Icon */}
           <button
             className="text-white text-3xl md:hidden"
             onClick={toggleMenu}
@@ -154,10 +326,8 @@ function App() {
             {isMenuOpen ? <X className="text-white w-6 h-6" /> : '☰'}
           </button>
 
-          {/* Nav Buttons */}
           <div
-            className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
-              } md:flex`}
+            className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"} md:flex`}
           >
             <button
               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
@@ -177,18 +347,32 @@ function App() {
             >
               Contact
             </button>
-
           </div>
         </nav>
       </div>
 
-      <Canvas >
+      <Canvas>
         <ambientLight />
-        <OrbitControls enableDamping={false} enableRotate={false} />
+        <OrbitControls enableDamping={false} enableRotate={false}  enableZoom={false}/>
         <Scene />
         <CameraControls ref={cameraControlsRef} />
       </Canvas>
 
+      {/* ↓ Down Button */}
+      <button 
+        className="fixed bottom-10 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+        onClick={() => cameraControlsRef.current?.goNext()}
+      >
+        ↓
+      </button>
+
+      {/* ↑ Up Button (optional) */}
+      <button 
+        className="fixed bottom-24 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+        onClick={() => cameraControlsRef.current?.goPrev()}
+      >
+        ↑
+      </button>
     </>
   )
 }
