@@ -160,6 +160,10 @@ function App() {
 
   return (
     <>
+    {!isMobile && 
+      <div className='absolute top-2/6  sm:text-2xl md:text-4xl  p-8 font-bold'>
+        Dive into 3D <br />Web Development <br />Journey with me
+      </div>}
       <div className='flex'>
         {!isMobile && (<div className='left-0 absolute z-40 p-3 flex'>
           <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
