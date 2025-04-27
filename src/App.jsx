@@ -71,7 +71,23 @@ const CameraControls = forwardRef((props, ref) => {
     goToContact: () => setCurrentTargetIndex(3),
     goToStartup: () => setCurrentTargetIndex(0),
   }))
-
+  // Expose navigation functions to parent
+  useImperativeHandle(ref, () => ({
+    goToTeckStack: () => setCurrentTargetIndex(1),
+    goToAbout: () => setCurrentTargetIndex(2),
+    goToContact: () => setCurrentTargetIndex(3),
+    goToStartup: () => setCurrentTargetIndex(0),
+    goNext: () => {
+      if (currentTargetIndex < targetPositions.length - 1) {
+        setCurrentTargetIndex((prev) => prev + 1);
+      }
+    },
+    goPrev: () => {
+      if (currentTargetIndex > 0) {
+        setCurrentTargetIndex((prev) => prev - 1);
+      }
+    }
+  }))
 
   const handleScroll = (event) => {
 
@@ -192,11 +208,29 @@ function App() {
 
       <Canvas >
         <ambientLight />
-        <OrbitControls enableDamping={false} enableRotate={false} enableZoom={false}/>
+        <OrbitControls enableDamping={false} enableRotate={false} enableZoom={false} />
         <Scene />
         <CameraControls ref={cameraControlsRef} />
       </Canvas>
+      {!!isMobile &&
+        <button
+          className="fixed bottom-24 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+          onClick={() => cameraControlsRef.current?.goPrev()}
+        >
+          ↑
+        </button>}
+      {/* ↓ Down Button */}
+      {!!isMobile &&
+        <button
+          className="fixed bottom-10 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+          onClick={() => cameraControlsRef.current?.goNext()}
+        >
+          ↓
+        </button>}
     </>
+
+    //       {/* ↑ Up Button (optional) */}
+
   )
 }
 
