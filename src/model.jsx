@@ -16,9 +16,9 @@ export function Model(props) {
   const { camera } = useThree();
   const [showHtml, setShowHtml] = useState(false)
   const [showItem, setshowItem] = useState(false)
-  const targetPosition = new THREE.Vector3(-0.5490231344449, 2.974757394954851,  -1.80)
+  const targetPosition = new THREE.Vector3(-0.5490231344449, 2.974757394954851, -1.80)
   const targetPosition2 = new THREE.Vector3(-1.9480259020108315, 2.7969450450499505, -0.029262465466163064)
-  const targetPosition3 = new THREE.Vector3(-0.55, 2.97, -1.1)
+  const targetPosition3 = new THREE.Vector3(-0.55, 2.97, -1.35)
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
@@ -32,7 +32,7 @@ export function Model(props) {
 
 
   useFrame(() => {
-    if (camera.position.distanceTo(targetPosition) < 0.1 ||camera.position.distanceTo(targetPosition3) < 0.1) {
+    if (camera.position.distanceTo(targetPosition) < 0.1 || camera.position.distanceTo(targetPosition3) < 0.1) {
       setShowHtml(true)
     } else {
       setShowHtml(false)
