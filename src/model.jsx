@@ -545,7 +545,7 @@ export function Model(props) {
         position={[-0.624, 2.433, -2.345]}
         scale={0.073}
       />
-      <mesh
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes.Text.geometry}
@@ -553,7 +553,7 @@ export function Model(props) {
         position={[-2.495, 5.236, 2.104]}
         rotation={[1.162, 0.074, -1.572]}
         scale={0.822}
-      />
+      /> */}
     </group>
   )
 }

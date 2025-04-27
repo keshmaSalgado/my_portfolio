@@ -218,7 +218,7 @@ function App() {
       </Canvas>
       {!!isMobile &&
         <button
-          className="fixed bottom-24 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+          className="left-1/2 fixed bottom-24 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
           onClick={() => cameraControlsRef.current?.goPrev()}
         >
           ↑
@@ -226,7 +226,7 @@ function App() {
       {/* ↓ Down Button */}
       {!!isMobile &&
         <button
-          className="fixed bottom-10 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
+          className="left-1/2  fixed bottom-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
           onClick={() => cameraControlsRef.current?.goNext()}
         >
           ↓
