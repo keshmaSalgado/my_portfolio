@@ -11,8 +11,7 @@ import { Model } from './model'
 import { Break } from 'three/tsl';
 import { X } from 'lucide-react';
 
-const CameraControls = forwardRef((props, ref) => {
-  const isMobile = window.innerWidth < 768;
+const CameraControls = forwardRef(({ isMobile }, ref) => {
   const { camera } = useThree();
   const scrollCooldown = useRef(false);
   // const touchStartY = useRef(null);
@@ -160,17 +159,24 @@ function App() {
 
   return (
     <>
-    {/**Menu */}
+      {/**Menu */}
       {!isMobile &&
-        <div className='absolute top-2/6  sm:text-2xl md:text-4xl  p-8 font-bold'>
-          Dive into 3D <br />Web Development <br />Journey with me
-        </div>}
-      <div className='flex'>
-        {!isMobile && (<div className='left-0 absolute z-40 p-3 flex'>
-          <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
-          <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
+        <div className='absolute top-2/6 p-8 '>
+          <div className=' sm:text-2xl md:text-4xl font-bold '>
+            Dive into 3D <br />Web Development <br />Journey with me
+          </div>
+          <div className='text-[20px] p-4'>
+            I'm a 3D Web Developer passionate <br />about creating immersive,  <br />interactive experiences <br /> using React Three Fiber, <br /> Three.js, and WebGL. <br /> I turn ideas into dynamic,  <br />high-performing web experiences.
+          </div>
+        </div>
 
-        </div>)}
+      }
+      <div className='flex'>
+        <div className='left-0 absolute z-40 p-3 flex'>
+          <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
+          {!isMobile && <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>}
+
+        </div>
         {/* Navigation Menu */}
 
         <nav className="absolute top-0 right-0 z-40 p-4">
@@ -185,7 +191,7 @@ function App() {
 
           {/* Nav Buttons */}
           <div
-            className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
+            className={`flex flex-col  z-30 md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
               } md:flex`}
           >
             <button
@@ -215,7 +221,7 @@ function App() {
         <ambientLight />
         <OrbitControls enableDamping={false} enableRotate={false} enableZoom={false} />
         <Scene />
-        <CameraControls ref={cameraControlsRef} />
+        <CameraControls ref={cameraControlsRef} isMobile={isMobile}/>
       </Canvas>
 
       {/* ↑ Up Button (optional) */}
