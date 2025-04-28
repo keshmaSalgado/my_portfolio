@@ -101,7 +101,7 @@ const CameraControls = forwardRef((props, ref) => {
     scrollCooldown.current = true;
     setTimeout(() => {
       scrollCooldown.current = false;
-    }, 800);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -160,10 +160,11 @@ function App() {
 
   return (
     <>
-    {!isMobile && 
-      <div className='absolute top-2/6  sm:text-2xl md:text-4xl  p-8 font-bold'>
-        Dive into 3D <br />Web Development <br />Journey with me
-      </div>}
+    {/**Menu */}
+      {!isMobile &&
+        <div className='absolute top-2/6  sm:text-2xl md:text-4xl  p-8 font-bold'>
+          Dive into 3D <br />Web Development <br />Journey with me
+        </div>}
       <div className='flex'>
         {!isMobile && (<div className='left-0 absolute z-40 p-3 flex'>
           <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
@@ -197,7 +198,7 @@ function App() {
               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
               onClick={() => cameraControlsRef.current?.goToAbout()}
             >
-              About
+              MyProjects
             </button>
             <button
               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
@@ -216,6 +217,8 @@ function App() {
         <Scene />
         <CameraControls ref={cameraControlsRef} />
       </Canvas>
+
+      {/* ↑ Up Button (optional) */}
       {!!isMobile &&
         <button
           className="left-1/2 fixed bottom-24 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
@@ -233,7 +236,6 @@ function App() {
         </button>}
     </>
 
-    //       {/* ↑ Up Button (optional) */}
 
   )
 }
