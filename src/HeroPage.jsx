@@ -2,17 +2,17 @@ import './index.css'; // Tailwind CSS
 
 export default function Example() {
     return (
-        <div className="relative bg-indigo-200 min-h-screen p-6 text-black">
-            <main className="space-y-8">               
+        <div className="relative  bg-gray-250 min-h-screen p-6 text-black">
+            <main className="space-y-8">
                 <section>
                     <h2 className="text-[15px] font-semibold mb-4 underline">🚀 These Are My Projects.</h2>
                     <a
                         href="https://first-learning-project.vercel.app/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block max-w-sm"
+                        className="block max-w-sm p-3"
                     >
-                        <div className="w-55 h-55 bg-white text-black text-sm border-4 rounded-2xl border-double hover:bg-black hover:text-amber-50 transition-colors duration-300">
+                        <div className="w-55 h-55 shadow-2xl bg-gray-50 border border-transparent text-black text-sm  rounded-2xl hover:bg-black hover:text-amber-50 transition-colors duration-300">
                             <div className="p-3">
                                 <h3 className="font-bold text-[10px] mb-2">Vehicle Shop</h3>
                                 <img
