@@ -165,7 +165,7 @@ function App() {
           <div className=' sm:text-2xl md:text-4xl font-bold text-center'>
             Dive into 3D <br />Web Development <br />Journey with me
           </div>
-          <div className='text-[20px] p-4 text-center'>
+          <div className='text-[20px] p-4 text-left border border-double'>
             I'm a 3D Web Developer <br />passionate <br />about creating immersive,  <br />interactive experiences <br /> using React Three Fiber, <br /> Three.js, and WebGL. <br /> I turn ideas into dynamic,  <br />high-performing web experiences.
           </div>
         </div>
