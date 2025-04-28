@@ -100,7 +100,7 @@ const CameraControls = forwardRef(({ isMobile }, ref) => {
     scrollCooldown.current = true;
     setTimeout(() => {
       scrollCooldown.current = false;
-    }, 1000);
+    }, 800);
   };
 
   useEffect(() => {
@@ -162,16 +162,16 @@ function App() {
       {/**Menu */}
       {!isMobile &&
         <div className='absolute top-2/6 p-8 '>
-          <div className=' sm:text-2xl md:text-4xl font-bold '>
+          <div className=' sm:text-2xl md:text-4xl font-bold text-center'>
             Dive into 3D <br />Web Development <br />Journey with me
           </div>
-          <div className='text-[20px] p-4'>
-            I'm a 3D Web Developer passionate <br />about creating immersive,  <br />interactive experiences <br /> using React Three Fiber, <br /> Three.js, and WebGL. <br /> I turn ideas into dynamic,  <br />high-performing web experiences.
+          <div className='text-[20px] p-4 text-center'>
+            I'm a 3D Web Developer <br />passionate <br />about creating immersive,  <br />interactive experiences <br /> using React Three Fiber, <br /> Three.js, and WebGL. <br /> I turn ideas into dynamic,  <br />high-performing web experiences.
           </div>
         </div>
 
       }
-      <div className='flex'>
+      <div className='flex z-40 '>
         <div className='left-0 absolute z-40 p-3 flex'>
           <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="" />
           {!isMobile && <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>}
@@ -191,7 +191,7 @@ function App() {
 
           {/* Nav Buttons */}
           <div
-            className={`flex flex-col  z-30 md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
+            className={`flex flex-col transition-all duration-300 ease-in-out z-30 md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"
               } md:flex`}
           >
             <button
@@ -216,13 +216,14 @@ function App() {
           </div>
         </nav>
       </div>
-
-      <Canvas >
-        <ambientLight />
-        <OrbitControls enableDamping={false} enableRotate={false} enableZoom={false} />
-        <Scene />
-        <CameraControls ref={cameraControlsRef} isMobile={isMobile}/>
-      </Canvas>
+      <div className="w-full h-full fixed">
+        <Canvas >
+          <ambientLight />
+          <OrbitControls enableZoom={false} enablePan={false} enableDamping={false} enableRotate={false} />
+          <Scene />
+          <CameraControls ref={cameraControlsRef} isMobile={isMobile} />
+        </Canvas>
+      </div>
 
       {/* ↑ Up Button (optional) */}
       {!!isMobile &&
@@ -247,178 +248,3 @@ function App() {
 }
 
 export default App
-
-
-// import { Canvas, useFrame, useThree } from '@react-three/fiber'
-// import React, {
-//   useEffect, useRef, useState, forwardRef,
-//   useImperativeHandle,
-//   Suspense,
-// } from "react";
-// import { Vector3 } from 'three'
-// import { Html, OrbitControls } from '@react-three/drei'
-// import { Model } from './model'
-// import { X } from 'lucide-react';
-// import './index.css'
-
-// const CameraControls = forwardRef((props, ref) => {
-//   const isMobile = window.innerWidth < 768;
-//   const { camera } = useThree();
-//   const [currentTargetIndex, setCurrentTargetIndex] = useState(0)
-
-//   const targetPositions = [
-//     isMobile ? new Vector3(10, 6.64, 1.92) : new Vector3(6.09, 6.64, 3.52),
-//     isMobile ? new Vector3(-1.2, 3, -0.10) : new Vector3(-0.93, 3.36, -0.48),
-//     isMobile ? new Vector3(-0.55, 2.97, -1.1) : new Vector3(-0.55, 2.97, -1.80),
-//     new Vector3(-1.95, 2.79, -0.03),
-//   ]
-
-//   const targetRotations = [
-//     [-0.8557, 1.2004, 0.8208],
-//     [-0.3056, 0.9293, 0.2476],
-//     [-0.3357, 0.0348, 0.0121],
-//     [-1.5526, 0.0621, 1.2864],
-//   ]
-
-//   // Expose navigation functions to parent
-//   useImperativeHandle(ref, () => ({
-//     goToTeckStack: () => setCurrentTargetIndex(1),
-//     goToAbout: () => setCurrentTargetIndex(2),
-//     goToContact: () => setCurrentTargetIndex(3),
-//     goToStartup: () => setCurrentTargetIndex(0),
-//     goNext: () => {
-//       if (currentTargetIndex < targetPositions.length - 1) {
-//         setCurrentTargetIndex((prev) => prev + 1);
-//       }
-//     },
-//     goPrev: () => {
-//       if (currentTargetIndex > 0) {
-//         setCurrentTargetIndex((prev) => prev - 1);
-//       }
-//     }
-//   }))
-
-//   // const handleScroll = (event) => {
-//   //   if (event.deltaY > 0 && currentTargetIndex < targetPositions.length - 1) {
-//   //     setCurrentTargetIndex((prev) => prev + 1);
-//   //   } else if (event.deltaY < 0 && currentTargetIndex > 0) {
-//   //     setCurrentTargetIndex((prev) => prev - 1);
-//   //   }
-//   // };
-
-//   // useEffect(() => {
-//   //   window.addEventListener("wheel", handleScroll);
-//   //   return () => {
-//   //     window.removeEventListener("wheel", handleScroll);
-//   //   };
-//   // }, [currentTargetIndex]);
-
-//   useFrame(() => {
-//     camera.position.lerp(targetPositions[currentTargetIndex], 0.05)
-//     const [x, y, z] = targetRotations[currentTargetIndex]
-//     camera.rotation.set(x, y, z)
-//   })
-
-//   return null;
-// });
-
-// const Scene = () => {
-//   return (
-//     <>
-//       <Suspense fallback={
-//         <Html center>
-//           <p className="text-white text-xl italic animate-pulse">Loading model...</p>
-//         </Html>
-//       }>
-//         <Model scale={[1, 1, 1]} />
-//       </Suspense>
-//     </>
-//   );
-// };
-
-// function App() {
-//   const cameraControlsRef = useRef();
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-//   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-//   useEffect(() => {
-//     const handleResize = () => {
-//       setIsMobile(window.innerWidth <= 768);
-//     };
-//     window.addEventListener('resize', handleResize);
-//     return () => {
-//       window.removeEventListener('resize', handleResize);
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <div className='flex'>
-//         {!isMobile && (
-//           <div className='left-0 absolute z-40 p-3 flex'>
-//             <img className="w-20 h-20 font-bold text-amber-50" src="./myLogo.svg" alt="Logo" />
-//             <h1 className='p-10 font-bold text-2xl'>KESHMA EESARA SALGADO</h1>
-//           </div>
-//         )}
-//         <nav className="absolute top-0 right-0 z-40 p-4">
-//           <button
-//             className="text-white text-3xl md:hidden"
-//             onClick={toggleMenu}
-//           >
-//             {isMenuOpen ? <X className="text-white w-6 h-6" /> : '☰'}
-//           </button>
-
-//           <div
-//             className={`flex flex-col md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"} md:flex`}
-//           >
-//             <button
-//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-//               onClick={() => cameraControlsRef.current?.goToTeckStack()}
-//             >
-//               Teckstack
-//             </button>
-//             <button
-//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-//               onClick={() => cameraControlsRef.current?.goToAbout()}
-//             >
-//               About
-//             </button>
-//             <button
-//               className="border-4 border-double p-3 m-1 hover:bg-amber-50 hover:text-black"
-//               onClick={() => cameraControlsRef.current?.goToContact()}
-//             >
-//               Contact
-//             </button>
-//           </div>
-//         </nav>
-//       </div>
-
-//       <Canvas>
-//         <ambientLight />
-//         <OrbitControls enableDamping={false} enableRotate={false}  enableZoom={false}/>
-//         <Scene />
-//         <CameraControls ref={cameraControlsRef} />
-//       </Canvas>
-
-//       {/* ↓ Down Button */}
-//       <button 
-//         className="fixed bottom-10 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
-//         onClick={() => cameraControlsRef.current?.goNext()}
-//       >
-//         ↓
-//       </button>
-
-//       {/* ↑ Up Button (optional) */}
-//       <button 
-//         className="fixed bottom-24 right-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
-//         onClick={() => cameraControlsRef.current?.goPrev()}
-//       >
-//         ↑
-//       </button>
-//     </>
-//   )
-// }
-
-// export default App

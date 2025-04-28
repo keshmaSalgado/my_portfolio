@@ -79,15 +79,15 @@ img {
   height: 216px;
   background: #f0f0f0;
   border-radius: 3px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 0;
 }
 
 .wrapper {
   padding: 10px;
-  width: 668px;
-  height: 432px;
-  transform-origin: top left;
+  width: 334px;
+  height: 216px;
 }
 
 .topic1 {
