@@ -226,7 +226,7 @@ function App() {
       <div className="w-full h-full fixed">
         <Canvas >
           <ambientLight />
-          <OrbitControls enableRotate={false} enableDamping={false} enableZoom={false}  />
+          <OrbitControls enableRotate={false} enableDamping={false} enableZoom={false} />
           <Scene />
           <CameraControls ref={cameraControlsRef} isMobile={isMobile} />
         </Canvas>
