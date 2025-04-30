@@ -8,6 +8,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, PerspectiveCamera, Html, useCursor } from '@react-three/drei'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import TeckStack from './techStack'
 
 export function Model(props) {
   const { nodes, materials } = useGLTF('./model/kamar2.glb')
@@ -16,9 +17,12 @@ export function Model(props) {
   const { camera } = useThree();
   const [showHtml, setShowHtml] = useState(false)
   const [showItem, setshowItem] = useState(false)
+  const [showTeck, setshowTeck] = useState(false)
   const targetPosition = new THREE.Vector3(-0.5490231344449, 2.974757394954851, -1.80)
   const targetPosition2 = new THREE.Vector3(-1.9480259020108315, 2.7969450450499505, -0.029262465466163064)
   const targetPosition3 = new THREE.Vector3(-0.55, 2.97, -1.35)
+  const targetPosition4 = new THREE.Vector3(-1, 3, -0.4)
+  const targetPosition5 = new THREE.Vector3(-0.93, 3.36, -0.48)
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
@@ -42,6 +46,12 @@ export function Model(props) {
     } else {
       setshowItem(false)
     }
+    if (camera.position.distanceTo(targetPosition4) < 0.1 || camera.position.distanceTo(targetPosition5) < 0.1) {
+      setshowTeck(true)
+    } else {
+      setshowTeck(false)
+    }
+
 
   })
   return (
@@ -67,7 +77,7 @@ export function Model(props) {
         />
       </group>
       <pointLight
-        intensity={100}
+        intensity={250}
         decay={2}
         position={[3.938, 7.835, -1.691]}
         rotation={[-1.839, 0.602, 1.932]}
@@ -287,6 +297,7 @@ export function Model(props) {
         rotation={[-Math.PI / 2, 0, 0]}
         scale={0.385}
       />
+      {/**Computer monitor screen*/}
       <mesh
         castShadow
         receiveShadow
@@ -295,7 +306,22 @@ export function Model(props) {
         position={[-2.04, 3.015, -1.191]}
         rotation={[1.517, -0.044, -1.389]}
         scale={[0.372, 1.002, 0.608]}
-      />
+      >
+        {showTeck && <Html
+          className="content"
+          position={[-0.02, 0.0, -0.012]}
+          rotation={[1.62, 3.3, 3.2]}
+          scale={[0.2, 0.2, 0.5]}
+          transform
+          occlude
+        >
+          <div className="wrapper" onPointerDown={(e) => e.stopPropagation()}>
+            <TeckStack />
+          </div>
+        </Html>}
+      </mesh>
+
+      {/* monitor */}
       <group
         position={[-2.051, 3.012, -1.196]}
         rotation={[0.147, 0.971, -0.121]}
@@ -311,9 +337,12 @@ export function Model(props) {
           receiveShadow
           geometry={nodes.Cube004_1.geometry}
           material={materials['Material.008']}
-        />
+        >
+
+
+        </mesh>
       </group>
-      <mesh
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes['react-logo'].geometry}
@@ -321,8 +350,8 @@ export function Model(props) {
         position={[-2.368, 3.222, -0.664]}
         rotation={[1.602, -0.039, -0.978]}
         scale={0.101}
-      />
-      <mesh
+      /> */}
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes['react-logo001'].geometry}
@@ -393,7 +422,7 @@ export function Model(props) {
         position={[-2.175, 2.903, -1.002]}
         rotation={[1.602, -0.039, -0.978]}
         scale={0.101}
-      />
+      /> */}
       <group position={[-1.973, 2.427, -0.042]} rotation={[-1.571, -0.001, 1.806]} scale={1.239}>
         <mesh
           castShadow

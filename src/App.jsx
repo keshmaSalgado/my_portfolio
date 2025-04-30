@@ -51,7 +51,7 @@ const CameraControls = forwardRef(({ isMobile }, ref) => {
 
   const targetPositions = [
     isMobile ? new Vector3(10, 6.64, 1.92) : new Vector3(6.09, 6.64, 3.52), // startup
-    isMobile ? new Vector3(-1.2, 3, -0.10) : new Vector3(-0.93, 3.36, -0.48), // teckStack
+    isMobile ? new Vector3(-1, 3, -0.4) : new Vector3(-0.93, 3.36, -0.48), // teckStack
     isMobile ? new Vector3(-0.55, 2.97, -1.35) : new Vector3(-0.55, 2.97, -1.80), // About
     new Vector3(-1.95, 2.79, -0.03), // Contact
   ]
@@ -166,7 +166,14 @@ function App() {
             Dive into 3D <br />Web Development <br />Journey with me
           </div>
           <div className='text-[20px] p-4 text-left border border-double'>
-            I'm a 3D Web Developer <br />passionate <br />about creating immersive,  <br />interactive experiences <br /> using React Three Fiber, <br /> Three.js, and WebGL. <br /> I turn ideas into dynamic,  <br />high-performing web experiences.
+            I'm a 3D Web Developer <br />
+            passionate <br />
+            about creating immersive,  <br />
+            interactive experiences <br />
+            using React Three Fiber, <br />
+            Three.js, and WebGL. <br />
+            I turn ideas into dynamic,  <br />
+            high-performing web experiences.
           </div>
         </div>
 
@@ -219,7 +226,7 @@ function App() {
       <div className="w-full h-full fixed">
         <Canvas >
           <ambientLight />
-          <OrbitControls enableZoom={false} enablePan={false} enableDamping={false} enableRotate={false} />
+          <OrbitControls enableRotate={false} enableDamping={false} enableZoom={false}  />
           <Scene />
           <CameraControls ref={cameraControlsRef} isMobile={isMobile} />
         </Canvas>

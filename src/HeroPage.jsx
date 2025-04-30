@@ -6,7 +6,7 @@ export default function Example() {
 
     const listItems = techstack.map((item, index) => (
         <span key={index}>
-            <button type="button" className="bg-blue-500 shadow-black text-amber-50 rounded-[3px] p-1 text-[8px] shadow-2xl border border-transparent">{item}</button>
+            <button type="button" className="bg-blue-900 shadow-black text-amber-50 rounded-[3px] p-1 text-[8px] shadow-2xl border border-transparent">{item}</button>
         </span>
     ));
 
@@ -14,7 +14,7 @@ export default function Example() {
         <div className="relative  bg-gray-250 min-h-screen p-6 text-black">
             <main className="space-y-8">
                 <section>
-                    <h2 className="text-[15px] font-semibold mb-4 text-blue-600">🚀 These Are My Projects.</h2>
+                    <h2 className="text-[15px] font-semibold mb-4 text-blue-900">🚀 These Are My Projects.</h2>
                     <a
                         href="https://first-learning-project.vercel.app/"
                         target="_blank"
