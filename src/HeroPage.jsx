@@ -44,14 +44,17 @@ export default function Example() {
                         rel="noopener noreferrer"
                         className="block max-w-sm p-3"
                     >
-                        <div className="w-55 h-55 shadow-2xl shadow-gray-600 bg-gray-50 border border-transparent text-black text-sm  rounded-[10px] hover:bg-black hover:text-amber-50 transition-colors duration-300">
+                        <div className="w-55 shadow-2xl shadow-gray-600 bg-gray-50 border border-transparent text-black text-sm  rounded-[10px] hover:bg-black hover:text-amber-50 transition-colors duration-300">
                             <div className="p-3">
-                                <h3 className="font-bold text-[10px] mb-2">Vehicle Shop</h3>
+                                <h3 className="font-bold text-[10px] mb-2">Solar System</h3>
+                                
                                 <img
                                     src="/solor_system.JPG"
-                                    alt="Vehicle shop preview"
-                                    className="rounded-lg mb-4"
+                                    alt="Solor system preview"
+                                    className="rounded-lg mb-4 h-[50px]"
                                 />
+                              
+                               
                                 <div className="flex flex-col gap-1 text-[10px]">
                                     <div className="flex gap-1">
                                         <span className="font-semibold">Tech stack:</span>
@@ -62,7 +65,7 @@ export default function Example() {
                                     </div>
                                     <div className="flex gap-2">
                                         <span className="font-semibold">About:</span>
-                                        <span>This is a 3D website about a car shop.</span>
+                                        <span>This is an interactive 3D Solar System built with Three.js.</span>
                                     </div>
                                 </div>
                             </div>
