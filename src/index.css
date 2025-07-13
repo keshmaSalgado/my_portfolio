@@ -172,3 +172,16 @@ img {
   cursor: pointer;
   font-weight: bold;
 }
+
+.nav-btn {
+  border: 4px double white;
+  padding: 0.75rem;
+  margin: 0.25rem;
+  background: transparent;
+  color: white;
+  transition: all 0.3s ease;
+}
+.nav-btn:hover {
+  background-color: #fef3c7; /* Tailwind amber-50 */
+  color: black;
+}
