@@ -9,7 +9,10 @@ export default function Stack() {
         { name: 'CSS', img: './images/css.svg' },
         { name: 'TailwindCss', img: './images/tailwindcss.svg' },
         { name: 'ThreeJs', img: './images/threejs.svg' },
-        { name: 'Flutter', img: './images/flutter.svg' },
+        { name: 'Csharp', img: './images/csharp.svg' },
+        { name: 'go', img: './images/go.svg' },
+        { name: 'dotnet', img: './images/dotnet.svg' },
+        { name: 'nodejs', img: './images/nodejs.svg' },
     ];
 
     const containerVariants = {
