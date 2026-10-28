@@ -77,17 +77,52 @@ img {
 .content {
   width: 334px;
   height: 216px;
-  background: #f0f0f0;
+  background: transparent;
   border-radius: 3px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   padding: 0;
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 .wrapper {
-  padding: 10px;
+  padding: 0;
+  margin: 0;
   width: 334px;
-  height: 400px;
+  height: 216px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dedicated visible scrollbar ONLY when inside the folder window */
+.monitor-scrollbar {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 rgba(15, 23, 42, 0.6);
+}
+
+.monitor-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  display: block !important;
+}
+
+.monitor-scrollbar::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+
+.monitor-scrollbar::-webkit-scrollbar-thumb {
+  background: #3b82f6;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.monitor-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #60a5fa;
 }
 
 .topic1 {
