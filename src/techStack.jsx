@@ -5,7 +5,7 @@ import Crtificate from "./Certificate";
 
 export default function TeckStack() {
     const [activePage, setactivePage] = useState("tech");
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const contentVariants = {
         initial: { opacity: 0, y: 15 },
