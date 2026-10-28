@@ -50,6 +50,15 @@ const CameraControls = forwardRef(({ isMobile }, ref) => {
   const handleScroll = (event) => {
     if (scrollCooldown.current) return;
 
+    // Ignore scroll events originating inside the monitor window
+    if (event.target && event.target.closest && (
+      event.target.closest('.monitor-scrollbar') ||
+      event.target.closest('.content') ||
+      event.target.closest('.wrapper')
+    )) {
+      return;
+    }
+
     if (event.deltaY > 0 && currentTargetIndex < targetPositions.length - 1) {
       setCurrentTargetIndex(prev => prev + 1);
     } else if (event.deltaY < 0 && currentTargetIndex > 0) {
