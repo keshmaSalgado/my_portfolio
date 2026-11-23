@@ -5,7 +5,7 @@ import {
   Home, Wrench, Briefcase, Award, Mail,
   Github, Linkedin, Globe, ExternalLink,
   Code2, Database, Cloud, Hammer, Layers,
-  Monitor, Send, Box, ArrowUpRight
+  Monitor, Send, Box, ArrowUpRight, X, MonitorSmartphone
 } from 'lucide-react';
 
 /* ───── data (same as your existing components) ───── */
@@ -338,6 +338,44 @@ function ContactSection() {
   );
 }
 
+/* ───── desktop hint toast ───── */
+function DesktopHint() {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: -80, opacity: 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 24, delay: 0.6 }}
+        className="fixed top-4 left-4 right-4 z-[100] bg-gradient-to-r from-blue-600/95 to-indigo-600/95 backdrop-blur-lg rounded-2xl shadow-xl shadow-blue-900/40 border border-blue-400/30 p-4 flex items-start gap-3"
+      >
+        <div className="shrink-0 w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center mt-0.5">
+          <MonitorSmartphone size={20} className="text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-white text-sm font-bold leading-snug">
+            Want the full 3D experience?
+          </p>
+          <p className="text-blue-100/80 text-xs mt-0.5 leading-relaxed">
+            Open this portfolio on a desktop browser for an immersive 3D journey ✨
+          </p>
+        </div>
+        <button
+          onClick={() => setVisible(false)}
+          className="shrink-0 w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+          aria-label="Dismiss"
+        >
+          <X size={14} className="text-white" />
+        </button>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 /* ───── main mobile shell ───── */
 export default function MobilePortfolio() {
   const [activeTab, setActiveTab] = useState('home');
@@ -352,6 +390,9 @@ export default function MobilePortfolio() {
 
   return (
     <div className="mobile-portfolio-root">
+      {/* desktop hint notification */}
+      <DesktopHint />
+
       {/* scrollable content */}
       <div className="mobile-scroll-area">
         <AnimatePresence mode="wait">
