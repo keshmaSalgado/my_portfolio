@@ -1,15 +1,21 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import {
+  Home, Wrench, Briefcase, Award, Mail,
+  Github, Linkedin, Globe, ExternalLink,
+  Code2, Database, Cloud, Hammer, Layers,
+  Monitor, Send, Box, ArrowUpRight
+} from 'lucide-react';
 
 /* ───── data (same as your existing components) ───── */
 const techCategories = [
-  { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Python', 'Java', 'Go', 'Dart'] },
-  { category: 'Frontend', items: ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'Three.js', 'R3F'] },
-  { category: 'Backend', items: ['Node.js', 'Express', 'Django', 'FastAPI'] },
-  { category: 'Databases', items: ['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite'] },
-  { category: 'Cloud', items: ['AWS', 'Vercel', 'Render'] },
-  { category: 'Tools', items: ['Git', 'GitHub', 'Docker', 'Figma', 'Blender', 'Linux'] },
+  { category: 'Languages', icon: <Code2 size={14} />, items: ['JavaScript', 'TypeScript', 'Python', 'Java', 'Go', 'Dart'] },
+  { category: 'Frontend', icon: <Monitor size={14} />, items: ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'Three.js', 'R3F'] },
+  { category: 'Backend', icon: <Layers size={14} />, items: ['Node.js', 'Express', 'Django', 'FastAPI'] },
+  { category: 'Databases', icon: <Database size={14} />, items: ['MongoDB', 'MySQL', 'PostgreSQL', 'SQLite'] },
+  { category: 'Cloud', icon: <Cloud size={14} />, items: ['AWS', 'Vercel', 'Render'] },
+  { category: 'Tools', icon: <Hammer size={14} />, items: ['Git', 'GitHub', 'Docker', 'Figma', 'Blender', 'Linux'] },
 ];
 
 const projects = [
@@ -91,9 +97,9 @@ const certificates = [
 ];
 
 /* ───── small reusable pieces ───── */
-const SectionTitle = ({ emoji, children }) => (
+const SectionTitle = ({ icon, children }) => (
   <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-4">
-    <span>{emoji}</span> {children}
+    {icon} {children}
   </h2>
 );
 
@@ -143,7 +149,7 @@ function HeroSection() {
           rel="noopener noreferrer"
           className="mobile-btn-outline"
         >
-          💻 GitHub
+          <Github size={16} /> GitHub
         </a>
         <a
           href="https://www.linkedin.com/in/keshma-salgado-6541932a8/"
@@ -151,7 +157,7 @@ function HeroSection() {
           rel="noopener noreferrer"
           className="mobile-btn-outline"
         >
-          🔗 LinkedIn
+          <Linkedin size={16} /> LinkedIn
         </a>
       </motion.div>
     </section>
@@ -161,12 +167,12 @@ function HeroSection() {
 function TechSection() {
   return (
     <section className="mobile-section px-5 py-6">
-      <SectionTitle emoji="🛠">Tech Stack</SectionTitle>
+      <SectionTitle icon={<Wrench size={20} />}>Tech Stack</SectionTitle>
       <div className="space-y-4">
         {techCategories.map((cat) => (
           <div key={cat.category}>
-            <h3 className="text-[11px] font-bold text-blue-400 uppercase tracking-wider mb-1.5">
-              {cat.category}
+            <h3 className="text-[11px] font-bold text-blue-400 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              {cat.icon} {cat.category}
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {cat.items.map((item) => (
@@ -189,7 +195,7 @@ function ProjectsSection() {
 
   return (
     <section className="mobile-section px-5 py-6">
-      <SectionTitle emoji="💼">Projects</SectionTitle>
+      <SectionTitle icon={<Briefcase size={20} />}>Projects</SectionTitle>
 
       {/* filter tabs */}
       <div className="flex gap-2 mb-4 overflow-x-auto pb-1">
@@ -252,17 +258,17 @@ function ProjectsSection() {
                 <div className="flex gap-2 pt-1">
                   {project.live && (
                     <a href={project.live} target="_blank" rel="noopener noreferrer" className="mobile-link-btn bg-blue-600">
-                      🌐 Live
+                      <Globe size={12} /> Live <ArrowUpRight size={10} />
                     </a>
                   )}
                   {project.github && (
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="mobile-link-btn bg-slate-700">
-                      💻 GitHub
+                      <Github size={12} /> GitHub <ArrowUpRight size={10} />
                     </a>
                   )}
                   {project.sketchfab && (
                     <a href={project.sketchfab} target="_blank" rel="noopener noreferrer" className="mobile-link-btn bg-amber-600">
-                      🐉 Sketchfab
+                      <Box size={12} /> Sketchfab <ArrowUpRight size={10} />
                     </a>
                   )}
                 </div>
@@ -278,7 +284,7 @@ function ProjectsSection() {
 function CertsSection() {
   return (
     <section className="mobile-section px-5 py-6">
-      <SectionTitle emoji="🏆">Certifications</SectionTitle>
+      <SectionTitle icon={<Award size={20} />}>Certifications</SectionTitle>
       <div className="space-y-3">
         {certificates.map((cert, i) => (
           <a
@@ -286,13 +292,19 @@ function CertsSection() {
             href={cert.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="block bg-slate-900 border border-slate-800 rounded-xl p-3 active:scale-[0.98] transition-transform"
+            className="flex items-start gap-3 bg-slate-900 border border-slate-800 rounded-xl p-3 active:scale-[0.98] transition-transform"
           >
-            <h4 className="font-bold text-sm text-white">{cert.name}</h4>
-            <div className="flex gap-2 mt-1.5">
-              <Pill className="bg-blue-900 text-blue-200">{cert.platform}</Pill>
-              <Pill className="bg-slate-800 text-slate-300">{cert.provider}</Pill>
+            <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center">
+              <Award size={16} className="text-blue-400" />
             </div>
+            <div>
+              <h4 className="font-bold text-sm text-white">{cert.name}</h4>
+              <div className="flex gap-2 mt-1.5">
+                <Pill className="bg-blue-900 text-blue-200">{cert.platform}</Pill>
+                <Pill className="bg-slate-800 text-slate-300">{cert.provider}</Pill>
+              </div>
+            </div>
+            <ExternalLink size={14} className="text-slate-600 shrink-0 ml-auto mt-1" />
           </a>
         ))}
       </div>
@@ -304,19 +316,23 @@ function ContactSection() {
   const navigate = useNavigate();
   return (
     <section className="mobile-section px-5 py-6 pb-10">
-      <SectionTitle emoji="📬">Contact</SectionTitle>
+      <SectionTitle icon={<Mail size={20} />}>Contact</SectionTitle>
       <p className="text-sm text-slate-400 mb-4">
         Want to work together? Drop me a message!
       </p>
       <button
         onClick={() => navigate('/gmail')}
-        className="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition-colors"
+        className="w-full py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm transition-colors flex items-center justify-center gap-2"
       >
-        ✉️  Send me a message
+        <Send size={16} /> Send me a message
       </button>
-      <div className="flex justify-center gap-4 mt-5">
-        <a href="https://github.com/keshmaSalgado" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white text-xl transition-colors">💻</a>
-        <a href="https://www.linkedin.com/in/keshma-salgado-6541932a8/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white text-xl transition-colors">🔗</a>
+      <div className="flex justify-center gap-6 mt-5">
+        <a href="https://github.com/keshmaSalgado" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors">
+          <Github size={22} />
+        </a>
+        <a href="https://www.linkedin.com/in/keshma-salgado-6541932a8/" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-colors">
+          <Linkedin size={22} />
+        </a>
       </div>
     </section>
   );
@@ -327,11 +343,11 @@ export default function MobilePortfolio() {
   const [activeTab, setActiveTab] = useState('home');
 
   const tabs = [
-    { id: 'home', label: '🏠', title: 'Home' },
-    { id: 'tech', label: '🛠', title: 'Stack' },
-    { id: 'projects', label: '💼', title: 'Work' },
-    { id: 'certs', label: '🏆', title: 'Certs' },
-    { id: 'contact', label: '📬', title: 'Contact' },
+    { id: 'home', icon: <Home size={20} />, title: 'Home' },
+    { id: 'tech', icon: <Wrench size={20} />, title: 'Stack' },
+    { id: 'projects', icon: <Briefcase size={20} />, title: 'Work' },
+    { id: 'certs', icon: <Award size={20} />, title: 'Certs' },
+    { id: 'contact', icon: <Mail size={20} />, title: 'Contact' },
   ];
 
   return (
@@ -363,7 +379,7 @@ export default function MobilePortfolio() {
             onClick={() => setActiveTab(tab.id)}
             className={`mobile-tab-item ${activeTab === tab.id ? 'mobile-tab-active' : ''}`}
           >
-            <span className="text-lg">{tab.label}</span>
+            {tab.icon}
             <span className="text-[10px]">{tab.title}</span>
           </button>
         ))}
