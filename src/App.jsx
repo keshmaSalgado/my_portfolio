@@ -8,6 +8,7 @@ import { Html, OrbitControls } from '@react-three/drei';
 import './index.css';
 import { Model } from './model';
 import { X } from 'lucide-react';
+import MobilePortfolio from './MobilePortfolio';
 
 const CameraControls = forwardRef(({ isMobile }, ref) => {
   const { camera } = useThree();
@@ -109,50 +110,42 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // On mobile, skip the entire 3D scene and show a lightweight UI
+  if (isMobile) {
+    return <MobilePortfolio />;
+  }
+
   return (
     <>
       {/* Left Intro Text */}
-      {!isMobile &&
-        <div className='absolute top-2/6 p-8'>
-          <div className='sm:text-2xl md:text-4xl font-bold text-center'>
-            Dive into 3D <br />Web Development <br />Journey with me
-          </div>
-          <div className='text-[20px] p-4 text-left border border-double'>
-            I'm a 3D Web Developer <br />
-            passionate <br />
-            about creating immersive,  <br />
-            interactive experiences <br />
-            using React Three Fiber, <br />
-            Three.js, and WebGL. <br />
-            I turn ideas into dynamic,  <br />
-            high-performing web experiences.
-          </div>
+      <div className='absolute top-2/6 p-8'>
+        <div className='sm:text-2xl md:text-4xl font-bold text-center'>
+          Dive into 3D <br />Web Development <br />Journey with me
         </div>
-      }
+        <div className='text-[20px] p-4 text-left border border-double'>
+          I'm a 3D Web Developer <br />
+          passionate <br />
+          about creating immersive,  <br />
+          interactive experiences <br />
+          using React Three Fiber, <br />
+          Three.js, and WebGL. <br />
+          I turn ideas into dynamic,  <br />
+          high-performing web experiences.
+        </div>
+      </div>
 
       {/* Logo & Nav */}
       <div className='flex z-40'>
         <div className='left-0 absolute z-40 p-3 flex'>
           <img className="w-20 h-20" src="./myLogo.svg" alt="Logo" />
-          {!isMobile &&
-            <h1 className='p-10 font-bold text-2xl'>
-              KESHMA EESARA SALGADO
-            </h1>
-          }
+          <h1 className='p-10 font-bold text-2xl'>
+            KESHMA EESARA SALGADO
+          </h1>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Desktop Nav */}
         <nav className="absolute top-0 right-0 z-40 p-4">
-          <button
-            className="text-white text-3xl md:hidden"
-            onClick={toggleMenu}
-          >
-            {isMenuOpen ? <X className="text-white w-6 h-6" /> : '☰'}
-          </button>
-
-          <div
-            className={`flex flex-col transition-all duration-300 ease-in-out md:flex-row gap-2 mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"} md:flex`}
-          >
+          <div className="flex flex-row gap-2">
             <button className="nav-btn" onClick={() => cameraControlsRef.current?.goToTeckStack()}>Techstack</button>
             <button className="nav-btn" onClick={() => cameraControlsRef.current?.goToAbout()}>MyProjects</button>
             <button className="nav-btn" onClick={() => cameraControlsRef.current?.goToContact()}>Contact</button>
@@ -169,24 +162,6 @@ function App() {
           <CameraControls ref={cameraControlsRef} isMobile={isMobile} />
         </Canvas>
       </div>
-
-      {/* Mobile Arrows */}
-      {isMobile && (
-        <>
-          <button
-            className="left-1/2 fixed bottom-24 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
-            onClick={() => cameraControlsRef.current?.goPrev()}
-          >
-            ↑
-          </button>
-          <button
-            className="left-1/2 fixed bottom-10 p-4 bg-white text-black rounded-full z-50 hover:bg-amber-300 transition-all duration-300"
-            onClick={() => cameraControlsRef.current?.goNext()}
-          >
-            ↓
-          </button>
-        </>
-      )}
     </>
   );
 }
